@@ -1,0 +1,64 @@
+from PIL.Image import *
+
+    #fonction permettant ded charger une image
+    def ChargeImage(link):
+    
+        img = open(link)
+        return img
+           
+                
+    #Pour trouver la taille des rectangles que l'on veut (censure noire)     
+    def cc_size(link, start):
+    
+        img = ChargeImage(link)
+      
+        X,Y = start
+      
+        listeAttente = deque()
+        listeAttente.append(start)
+        tabAttente = [start]
+      
+        img[X,Y] = 0
+      
+        while(listeAttente):
+          
+            Ox,Oy = listeAttente.pop()
+      
+                for y in range(Oy-1,Oy+1+1):
+                    if(0 <= y < im.size[0]):
+                        for x in range(Ox-1,Ox+1+1):
+                            if(0 <= x < im.size[0]):
+                          
+                                if(img[x,y] == 0):
+                              
+                                    listeAttente.append((x,y))
+                                    tabAttente.append((x,y))
+                                    img[x,y] = 255
+                                    
+        img.save('grayImg.png')                      
+        cmpt = len(tabAttente)         
+        return cmpt        
+                   
+    #Fonction permettant de reconnaître la censure et pour indiquer où est la censure la remplace par du rouge    
+    def ReconizeCensure(link):
+    
+        img = ChargeImage(link)
+        
+        imgGray = img.convert('LA')
+        imgGray.save('grayImg.png')
+        
+        h = img.size[1]
+        w = img.size[0]
+        
+        for x in range(w):
+            for y in range(h):
+                start = x,y
+                Size = cc_size('grayImg.png', start)
+                if(Size >= 75):
+                    for X in range(x,x+50):
+                        for Y in range(y,y+50):
+                            img[X,Y] = 255,0,0
+          
+        img.save('result.png')                    
+        pass            
+                 
