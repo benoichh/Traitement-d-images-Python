@@ -67,3 +67,21 @@ from PIL.Image import *
 #Peut on utiliser des API ou doit on tout coder ?
 #Comment faire pour entourrer la censure une fois repérer ? 
 #Comment différencier une censure blanche d'une grosse partie blanche de l'image de base ?
+
+
+
+#liens utiles:
+
+#Pour détecter et censurer automatiquement:
+
+#https://github.com/topics/nudity-detection?l=python
+#https://www.programmableweb.com/news/detect-nudity-api-automates-image-censorship/brief/2015/03/31
+#https://www.programmableweb.com/api/detect-nudity
+#https://blog.algorithmia.com/censor-faces-with-video-processing-algorithms/
+#https://blog.algorithmia.com/censoring-faces-automatically/
+
+#Pour reconstituer une image censurée:
+
+#https://www.bogotobogo.com/python/OpenCV_Python/python_opencv3_Image_reconstruction_Inpainting_Interpolation.php
+#https://github.com/cwg45/Image-Reconstruction
+#https://stats.stackexchange.com/questions/62416/image-reconstruction-using-compressed-sensing
