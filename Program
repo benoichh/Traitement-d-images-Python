@@ -55,10 +55,15 @@ from PIL.Image import *
                 start = x,y
                 Size = cc_size('grayImg.png', start)
                 if(Size >= 75):
-                    for X in range(x,x+50):
-                        for Y in range(y,y+50):
-                            img[X,Y] = 255,0,0
+                    #faire une actions si la censure dépasse 75 px
           
         img.save('result.png')                    
         pass            
-                 
+
+
+#Question à poser:
+
+#Comment compiler avec une image ?
+#Peut on utiliser des API ou doit on tout coder ?
+#Comment faire pour entourrer la censure une fois repérer ? 
+#Comment différencier une censure blanche d'une grosse partie blanche de l'image de base ?
