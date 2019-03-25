@@ -1,17 +1,19 @@
 from PIL.Image import *
 import sys
 
+#Fonction exécuter lorsque l'on lance le programme
 def Start():
 	image = sys.argv[1]
 	reconize(image)
 
 
-#fonction permettant ded charger une image
+#Fonction permettant ded charger une image
 def ChargeImage(link):
 	img = open(link)
 	return img
 
-#Reconnaître pixels à côté
+
+#Fonction permettant de reconnaître la censure en essaynt de trouver des pixels de même couleurs côte à côte
 def reconize(link):
 
 	img = ChargeImage(link)
@@ -50,7 +52,32 @@ def reconize(link):
 	pass
 
 
+#Fonction permettant la soustraction entre 2 pixels
+def soustraction pix(pix1, pix2):
+
+	R1,G1,B1 = pix1
+	R2,G2,B2 = pix2
+	
+	R = abs(R1-R2)
+	G = abs(G1-G2)
+	B = abs(B1-B2)
+	
+	#pix3 = R,G,B
+	total = R+G+B
+	
+	#return pix3
+	return total
+
+
+
 Start()
+
+
+
+
+
+
+
 
 
 
