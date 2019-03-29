@@ -20,32 +20,43 @@ def reconize(link):
 	pixR = img.load()
 	thumb = img.copy()
 	pix = thumb.load()
+	
+	
+	for x in range(img.size[0]-10):
+		for y in range(img.size[1]-10):
 
-	for x in range(img.size[0]):
-		for y in range(img.size[1]):
-
-			cmpt = 0
+			#Reconnaître des pixels similaires côte à côte
+			if(pix[x,y] != (0,0,255)):
 			
+				cmpt = 0
 
-			tab_ValeurX = []
-			tab_ValeurY = []
+				for xp in range(x,x+10):
+					for yp in range(y,y+10):
+						if(soustraction(pixR[xp,yp],pixR[x,y]) <= 20):
+							cmpt += 1
+									
+				if(cmpt >= 70):
+					for xp in range(x,x+10):
+						for yp in range(y,y+10):
+							pix[xp,yp] = 0,0,255				
 
-			for xp in range(x-5,x+5):
-				if(0 <= xp < img.size[0]):
-					for yp in range(y-5,y+5):
-						if(0 <= yp < img.size[1]):
-							#faire la somme des différence des pixels et ensuite comparer à genre 2 car les pixels censuré ne sont pas forcément excatement de la même couleur !
-							if(soustraction(pix[xp,yp],pix[x,y]) <= 5 and xp != x and yp != y):
-								cmpt += 1
-								tab_ValeurX.append(xp)
-								tab_ValeurY.append(yp)
 
-								if(cmpt > 5):
-									pix[x,y] = 0,0,255
-									for i in range(len(tab_ValeurX)):
-										a = tab_ValeurX[i]
-										b = tab_ValeurY[i]
-										pix[a,b] = 0,0,255
+	for x in range(img.size[0]-10):
+		for y in range(img.size[1]-10):				
+			#Reconnaître des rectangle à 90% de bleu
+			if(pix[x,y] == (0,0,255)):
+	
+				cmpt2 = 0
+
+				for xp in range(x,x+10):
+					for yp in range(y,y+10):
+						if(pix[xp,yp]==(0,0,255)):	
+							cmpt2 += 1				
+			
+				if(cmpt2 >= 91):
+					for xp in range(x,x+10):
+						for yp in range(y,y+10):
+							pix[xp, yp] = 0,0,255	
 
 
 	thumb.show()
@@ -53,7 +64,7 @@ def reconize(link):
 
 
 #Fonction permettant la soustraction entre 2 pixels
-def soustraction pix(pix1, pix2):
+def soustraction(pix1, pix2):
 
 	R1,G1,B1 = pix1
 	R2,G2,B2 = pix2
@@ -72,8 +83,6 @@ def soustraction pix(pix1, pix2):
 
 
 Start()
-
-
 
 
 
