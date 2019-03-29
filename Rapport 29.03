@@ -1,0 +1,64 @@
+from PIL.Image import *
+import sys
+
+#Fonction exécuter lorsque l'on lance le programme
+def Start():
+	image = sys.argv[1]
+	reconize(image)
+
+
+#Fonction permettant ded charger une image
+def ChargeImage(link):
+	img = open(link)
+	return img
+
+
+#Fonction permettant de reconnaître la censure en essaynt de trouver des pixels de même couleurs côte à côte
+def reconize(link):
+
+	img = ChargeImage(link)
+	pixR = img.load()
+	thumb = img.copy()
+	pix = thumb.load()
+
+	for x in range(img.size[0]-10):
+		for y in range(img.size[1]-10):
+			if(pix[x, y] == (0,0,255)):
+				continue
+			cmpt = 0
+			
+
+			for xp in range(x,x+10):
+				for yp in range(y,y+10):
+					if(soustraction(pixR[xp,yp],pixR[x,y]) <= 20):
+						cmpt += 1
+								
+			if(cmpt > 70):
+				for xp in range(x,x+10):
+					for yp in range(y,y+10):
+						pix[xp, yp] = 0,0,255
+
+	thumb.show()
+	pass
+
+
+#Fonction permettant la soustraction entre 2 pixels
+def soustraction(pix1, pix2):
+
+	R1,G1,B1 = pix1
+	R2,G2,B2 = pix2
+	
+	R = abs(R1-R2)
+	G = abs(G1-G2)
+	B = abs(B1-B2)
+	
+	#pix3 = R,G,B
+	total = R+G+B
+	
+	#return pix3
+	return total
+
+
+
+
+Start()
