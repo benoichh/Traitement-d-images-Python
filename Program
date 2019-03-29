@@ -35,7 +35,7 @@ def reconize(link):
 					for yp in range(y-5,y+5):
 						if(0 <= yp < img.size[1]):
 							#faire la somme des différence des pixels et ensuite comparer à genre 2 car les pixels censuré ne sont pas forcément excatement de la même couleur !
-							if(pix[xp,yp] == pix[x,y] and xp != x and yp != y):
+							if(soustraction(pix[xp,yp],pix[x,y]) <= 5 and xp != x and yp != y):
 								cmpt += 1
 								tab_ValeurX.append(xp)
 								tab_ValeurY.append(yp)
@@ -67,6 +67,7 @@ def soustraction pix(pix1, pix2):
 	
 	#return pix3
 	return total
+
 
 
 
