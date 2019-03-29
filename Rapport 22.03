@@ -1,1 +1,47 @@
+def Start():
+	image = sys.argv[1]
+	reconize(image)
 
+
+#fonction permettant ded charger une image
+def ChargeImage(link):
+	img = open(link)
+	return img
+
+#Reconnaître pixels à côté
+def reconize(link):
+
+	img = ChargeImage(link)
+	pixR = img.load()
+	thumb = img.copy()
+	pix = thumb.load()
+
+	for x in range(img.size[0]):
+		for y in range(img.size[1]):
+
+			cmpt = 0
+
+
+			tab_ValeurX = []
+			tab_ValeurY = []
+
+			for xp in range(x-5,x+5):
+				if(0 <= xp < img.size[0]):
+					for yp in range(y-5,y+5):
+						if(0 <= yp < img.size[1]):
+							#faire la somme des différence des pixels et ensuite comparer à genre 2 car les pixels censuré ne sont pas forcément excatement de la même couleur !
+							if(pix[xp,yp] == pix[x,y] and xp != x and yp != y):
+								cmpt += 1
+								tab_ValeurX.append(xp)
+								tab_ValeurY.append(yp)
+
+								if(cmpt > 5):
+									pix[x,y] = 0,0,255
+									for i in range(len(tab_ValeurX)):
+										a = tab_ValeurX[i]
+										b = tab_ValeurY[i]
+										pix[a,b] = 0,0,255
+
+
+	thumb.show()
+	pass
