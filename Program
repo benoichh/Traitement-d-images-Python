@@ -99,6 +99,7 @@ Start()
 
 #Comment détecter des suites de carré de censure ?
 #Comment éviter de détecter un fond d'image uniform non censuré ?
+#Faire une liste des coordonnées au lieu de les passer directe en bleu
 
 
 
