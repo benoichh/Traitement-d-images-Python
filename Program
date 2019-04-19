@@ -7,12 +7,14 @@ def Start():
 	reconize(image)
 
 
-#Fonction permettant ded charger une image
+#Fonction permettant de charger une image
 def ChargeImage(link):
 	img = open(link)
 	return img
 
-
+#Fonction permettant de calculer la distance euclidienne entre 2 points
+def eucl(x1,y1,x2,y2):
+	return ((x1-x2)**2+(y1-y2)**2)**0.5
 
 #Fonction permettant de reconnaître la censure en essaynt de trouver des pixels de même couleurs côte à côte
 def reconize(link):
@@ -22,7 +24,8 @@ def reconize(link):
 	thumb = img.copy()
 	pix = thumb.load()
 
-
+	list_X = []
+	list_Y = []	
 
 	#Reconnaître des pixels similaires côte à côte
 	for x in range(img.size[0]-10):
@@ -40,7 +43,16 @@ def reconize(link):
 				if(cmpt >= 90):
 					for xp in range(x,x+10):
 						for yp in range(y,y+10):
-							pix[xp,yp] = 0,0,255
+							list_X.append(xp)
+							list_Y.append(yp)
+							
+	
+
+	for i in range(len(list_X)):
+		X = list_X[i]
+		Y = list_Y[i]
+
+		pix[X,Y] = 0,0,255							
 
 
     #Reconnaître des rectangle à 90% de bleu
@@ -60,6 +72,43 @@ def reconize(link):
 					for xp in range(x,x+10):
 						for yp in range(y,y+10):
 							pix[xp, yp] = 0,0,255
+	
+
+
+	#Succession des carrés de censure (marche pas)
+	for x in range(img.size[0]-20):
+		for y in range(img.size[1]-20):
+			
+			Xb,Yb = 0,0
+			Xp,Yp = 0,0				
+			
+			for xp in range(x,x+20):
+				for yp in range(y,y+20):
+
+					if(pix[xp,yp] == 0,0,255): 
+						if(Xb,Yb == 0,0):
+							Xb,Yb = xp,yp
+
+					if(pix[xp,yp] == 0,0,255): 
+						if(eucl(Xb,Yb,xp,yp) > 20):
+							Xp,Yp = xp,yp
+					
+					if(eucl(Xb,Yb,Xp,Yp) > 5): 
+						if(eucl(Xb,Yb,Xp,Yp) < 40):
+						
+							print("Yes")				
+							
+							for xf in range(Xb,Xp):
+								for yf in range(Yb,Yp):
+									pix[xf,yf] = 0,0,255
+
+							Xb,Yb = 0,0
+						
+					
+			
+
+
+
 
 
 	thumb.show()
@@ -86,6 +135,7 @@ def soustraction(pix1, pix2):
 
 
 Start()
+
 
 
 
