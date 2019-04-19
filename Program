@@ -92,15 +92,19 @@ Start()
 #Questions:
 
 #Il n'y a pas de valeur universelle permettant de détecter la censure. Sur certaines photo c'est trop, d'autre pas assez... Comment faire ?
+Faire des stats
 
 #D'autre technique que le rectangle et les pixels pour detecter la censure ?
-
-#Que faire ensuite ?
+Detecter succecion de carré de censure
 
 #Comment détecter des suites de carré de censure ?
-#Comment éviter de détecter un fond d'image uniform non censuré ?
-#Faire une liste des coordonnées au lieu de les passer directe en bleu
+A faire
 
+#Comment éviter de détecter un fond d'image uniform non censuré ?
+Grâce a un seuil de carré bleu 
+
+#Faire une liste des coordonnées au lieu de les passer directe en bleu?
+Fait
 
 
 
