@@ -80,25 +80,26 @@ def reconize(link):
 	    for y in range(im.size[1]-20):
 
 		if(pix[x,y] == 0,0,255):
-		cmpt3 = 0
+			
+			cmpt3 = 0
 
-		    for xp in range(x,x+10):
-			for yp in range(y,y+10):
-			    if(pix[xp,yp] == 0,0,255):
-				cmpt3 += 1
-		    if(cmpt3 >= 85):
+		    	for xp in range(x,x+10):
+				for yp in range(y,y+10):
+			    		if(pix[xp,yp] == 0,0,255):
+						cmpt3 += 1
+			if(cmpt3 >= 85):
 
-			cmpt4 = 0
+				cmpt4 = 0
 
-			for xpp in range(xp,xp+10):
-			    for ypp in range(yp,yp+10):
-				if(pix[xpp,ypp] == 0,0,255):
-				    cmpt4 += 1
+				for xpp in range(xp,xp+10):
+			    		for ypp in range(yp,yp+10):
+						if(pix[xpp,ypp] == 0,0,255):
+				    			cmpt4 += 1
 
-		     if(cmpt4 >= 85):               
-			for X in range(x,x+20):
-			    for Y in range(y,y+20):
-				pix[X,Y] = 0,0,255 
+		     		if(cmpt4 >= 85):               
+					for X in range(x,x+20):
+			    			for Y in range(y,y+20):
+							pix[X,Y] = 0,0,255 
 
 
 
