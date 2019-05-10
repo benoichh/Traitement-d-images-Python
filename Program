@@ -1,48 +1,55 @@
-from PIL.Image import *
+from PIL import Image
 import sys
+
+from os import listdir
+
+percent = 0.95
+side = 30
 
 #Fonction exécuter lorsque l'on lance le programme
 def Start():
-	image = sys.argv[1]
-	reconize(image)
+	files = listdir(sys.argv[1])
 
+	for f in files:
+		if f.endswith(".jpg") or f.endswith(".png") :
+			img = Image.open(sys.argv[1]+"/"+f)
+			image = reconize(img)
+			image.save(sys.argv[2]+"/"+"detecte_"+ f)
 
-#Fonction permettant de charger une image
-def ChargeImage(link):
-	img = open(link)
-	return img
 
 #Fonction permettant de calculer la distance euclidienne entre 2 points
 def eucl(x1,y1,x2,y2):
 	return ((x1-x2)**2+(y1-y2)**2)**0.5
 
-#Fonction permettant de reconnaître la censure en essaynt de trouver des pixels de même couleurs côte à côte
-def reconize(link):
 
-	img = ChargeImage(link)
+#Fonction permettant de reconnaître la censure en essaynt de trouver des pixels de même couleurs côte à côte
+def reconize(img):
+
 	pixR = img.load()
 	thumb = img.copy()
 	pix = thumb.load()
 
 	list_X = []
-	list_Y = []	
-
+	list_Y = []
+	print("step 1")
 	#Reconnaître des pixels similaires côte à côte
-	for x in range(img.size[0]-10):
-		for y in range(img.size[1]-10):
+	for x in range(0,img.size[0]-side, side):
+
+		if x%20==0: print((100*x)/(img.size[0]-side))
+		for y in range(0,img.size[1]-side,side):
 
 			if(pix[x,y] != (0,0,255)):
 
 				cmpt = 0
 
-				for xp in range(x,x+10):
-					for yp in range(y,y+10):
-						if(soustraction(pixR[xp,yp],pixR[x,y]) <= 5):
+				for xp in range(x,x+side):
+					for yp in range(y,y+side):
+						if(soustraction(pixR[xp,yp],pixR[x,y]) <= 3):
 							cmpt += 1
 
-				if(cmpt >= 90):
-					for xp in range(x,x+10):
-						for yp in range(y,y+10):
+				if(cmpt >= side*side*percent):
+					for xp in range(x,x+side):
+						for yp in range(y,y+side):
 							list_X.append(xp)
 							list_Y.append(yp)
 							
@@ -55,56 +62,29 @@ def reconize(link):
 		pix[X,Y] = 0,0,255							
 
 
+	print("step 2")
     #Reconnaître des rectangle à 90% de bleu
-	for x in range(img.size[0]-10):
-		for y in range(img.size[1]-10):
+	for x in range(0,img.size[0]-side,side):
+		if x%20==0: print((100*x)/(img.size[0]-side))
+		for y in range(0,img.size[1]-side,side):
 			
 			if(pix[x,y] == (0,0,255)):
-	
+
 				cmpt2 = 0
 
-				for xp in range(x,x+10):
-					for yp in range(y,y+10):
+				for xp in range(x,x+side):
+					for yp in range(y,y+side):
 						if(pix[xp,yp]==(0,0,255)):
 							cmpt2 += 1
 			
-				if(cmpt2 >= 91):
-					for xp in range(x,x+10):
-						for yp in range(y,y+10):
+				if(cmpt2 >= side*side*percent):
+					for xp in range(x+1,x+side):
+						for yp in range(y+1,y+side):
 							pix[xp, yp] = 0,0,255
-	
-
-
-	#Succession des carrés de censure (Vérifier les valeurs pour les boucles + à compiler)
-	for x in range(im.size[0]-20):
-	    for y in range(im.size[1]-20):
-
-		if(pix[x,y] == 0,0,255):
-			
-			cmpt3 = 0
-
-		    	for xp in range(x,x+10):
-				for yp in range(y,y+10):
-			    		if(pix[xp,yp] == 0,0,255):
-						cmpt3 += 1
-			if(cmpt3 >= 85):
-
-				cmpt4 = 0
-
-				for xpp in range(xp,xp+10):
-			    		for ypp in range(yp,yp+10):
-						if(pix[xpp,ypp] == 0,0,255):
-				    			cmpt4 += 1
-
-		     		if(cmpt4 >= 85):               
-					for X in range(x,x+20):
-			    			for Y in range(y,y+20):
-							pix[X,Y] = 0,0,255 
-
-
 
 
 	thumb.show()
+	return thumb
 	pass
 
 
@@ -123,8 +103,6 @@ def soustraction(pix1, pix2):
 	
 	#return pix3
 	return total
-
-
 
 
 Start()
