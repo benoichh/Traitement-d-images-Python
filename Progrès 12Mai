@@ -1,0 +1,21 @@
+Seance 10/02 Suite rapport 
+
+Probleme: A chaque conpilation création d'une image d'origine + image censuré + image avec detection. Chaque compilation recrée des images ce qui crée un bazar dans le dossier de compilation
+Solution: Mettre en place 3 dossier . Dossier des images a censuré, dossier des images censuré, dossier des images detection.
+Constat: Dossier Principale avec le programme et les 3 dossiers plus propre visuelement pour retrouver nos fichier d'etude
+
+
+
+Probleme : temps de calcul trop long a la compilation
+Solution : parcourt des pixels avec distance euclidienne , saut de 2 en 2.
+Constat : gain du temps de calcul consodérable 
+
+Probleme : code mal structuré , obligé de changer les valeurs de taille de pixel et pourcentage pour chaque image a chaque endroit
+Solution : Mis en place de 2 variable percent et side
+Constat : gain de temps tres leger sur le prog mais gain de temps pour modifié et evite les erreurs
+
+Fin des 4h de cours: Programme épuré, plus rapide, semble fonctionner pour toutes les images de petite/moyenne taille , dossier de travail clair
+
+Objectif seance prochaine: 
+-Voir le resultat sur des images tres grandes ,De mauvaises qualités ,Noir et blanc 
+- Vérification de faux négatif et faux positif pour évités les marges d'erreurs
