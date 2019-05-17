@@ -58,4 +58,4 @@ for f in Files:
 	Fichier = open("Coordonnee/"+ f + ".txt", "a")
 
 	for i in range(len(listCoord)):
-		Fichier.write(listCoord[i])
+		Fichier.write(listCoord[i] +"\n")
