@@ -1,3 +1,6 @@
+#python3 detection.py ImagesCensuree ImagesDetectee
+
+
 from PIL import Image
 import sys
 
@@ -18,6 +21,7 @@ def Start():
 			img = Image.open(sys.argv[1]+"/"+f)
 			image = reconize(img)
 			image.save(sys.argv[2]+"/"+"detecte_"+ f)
+			reussite(f)
 
 
 #Fonction permettant de calculer la distance euclidienne entre 2 points
@@ -108,47 +112,13 @@ def soustraction(pix1, pix2):
 	return total
 
 
+def reussite(f):
+	Fichier = open("Coordonnee/"+ f + ".txt", "r")
+	#Comment parcourire le fichier caractère par caractère ?
+	for(len(Fichier)):
+		listCoord = (fichier)
+		if(fichier.read() = " "):
+			i = i + 1
+
+
 Start()
-
-
-
-
-#Questions:
-
-#Il n'y a pas de valeur universelle permettant de détecter la censure. Sur certaines photo c'est trop, d'autre pas assez... Comment faire ?
-Faire des stats
-
-#D'autre technique que le rectangle et les pixels pour detecter la censure ?
-Detecter succecion de carré de censure
-
-#Comment détecter des suites de carré de censure ?
-A faire
-
-#Comment éviter de détecter un fond d'image uniform non censuré ?
-Grâce a un seuil de carré bleu 
-
-#Faire une liste des coordonnées au lieu de les passer directe en bleu?
-Fait
-
-
-
-
-
-
-
-
-#liens utiles:
-
-#Pour détecter et censurer automatiquement:
-
-#https://github.com/topics/nudity-detection?l=python
-#https://www.programmableweb.com/news/detect-nudity-api-automates-image-censorship/brief/2015/03/31
-#https://www.programmableweb.com/api/detect-nudity
-#https://blog.algorithmia.com/censor-faces-with-video-processing-algorithms/
-#https://blog.algorithmia.com/censoring-faces-automatically/
-
-#Pour reconstituer une image censurée:
-
-#https://www.bogotobogo.com/python/OpenCV_Python/python_opencv3_Image_reconstruction_Inpainting_Interpolation.php
-#https://github.com/cwg45/Image-Reconstruction
-#https://stats.stackexchange.com/questions/62416/image-reconstruction-using-compressed-sensing
