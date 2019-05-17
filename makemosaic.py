@@ -45,3 +45,7 @@ for f in files:
 
         im.show()
         im.save(sys.argv[3]+"/"+"censure_"+ f)
+	
+	Fichier = open("Coordonnee_"+f)
+	for i in range(len(liste)):
+		Fichier.write(""+liste[i]+" ")
