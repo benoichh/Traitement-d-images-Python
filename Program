@@ -9,6 +9,9 @@ side = 30
 #Fonction exécuter lorsque l'on lance le programme
 def Start():
 	files = listdir(sys.argv[1])
+	
+	if len(sys.argv) > 2 and sys.argv[2] == "black":
+	        black = True
 
 	for f in files:
 		if f.endswith(".jpg") or f.endswith(".png") :
