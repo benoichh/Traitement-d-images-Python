@@ -113,12 +113,16 @@ def soustraction(pix1, pix2):
 
 
 def reussite(f):
+	listCoord = ()
+	
 	Fichier = open("Coordonnee/"+ f + ".txt", "r")
-	#Comment parcourire le fichier caractère par caractère ?
-	for(len(Fichier)):
-		listCoord = (fichier)
-		if(fichier.read() = " "):
-			i = i + 1
+	content = Fichier.readlines()
+	for line in content:
+		if(line == nombre + " " + nombre2):
+			X = nombre
+			Y = nombre2
+    			listCoord.append(X,Y)
+
 
 
 Start()
