@@ -119,6 +119,7 @@ def reussite(f):
 	Fichier = open("Coordonnee/"+ f + ".txt", "r")
 	content = Fichier.readlines()
 	for line in content:
+	#Comment faire ça ?
 		if(line == nombre + " " + nombre2):
 			X = nombre
 			Y = nombre2
