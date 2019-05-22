@@ -53,9 +53,10 @@ for f in Files:
 	im.save(sys.argv[3]+"/"+"censure_"+ f)
 
 	#Comment trouver les coordonnées modifiées?
-	listCoord = (X,Y)
+	listCoordX = ()
+	listCoordY = ()
 	#Comment enlever le .png ?
 	Fichier = open("Coordonnee/"+ f + ".txt", "a")
 
-	for i in range(len(listCoord)):
-		Fichier.write(listCoord[i] +"\n")
+	for i in range(len(listCoordX)):
+		Fichier.write(listCoordX[i] +" "+listCoordY[i]+"\n")
