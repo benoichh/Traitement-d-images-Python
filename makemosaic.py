@@ -10,7 +10,10 @@ from os import listdir
 Files = listdir(sys.argv[1])
 
 for f in Files:
-
+	
+	listCoordX = ()
+	listCoordY = ()
+	
 	im = Image.open(sys.argv[1]+"/"+f)
 	im.show()
 
@@ -35,11 +38,13 @@ for f in Files:
 			x = X+j*radius
 			if x+radius >= im.size[0]:
 				break
+			listCoordX.append(x)	
 
 			for k in range(H):
 				y = Y+k*radius
 				if y+radius >= im.size[1]:
 					break
+				listCoordY.append(y)	
 
 
 
@@ -53,8 +58,6 @@ for f in Files:
 	im.save(sys.argv[3]+"/"+"censure_"+ f)
 
 	#Comment trouver les coordonnées modifiées?
-	listCoordX = ()
-	listCoordY = ()
 	#Comment enlever le .png ?
 	Fichier = open("Coordonnee/"+ f + ".txt", "a")
 
