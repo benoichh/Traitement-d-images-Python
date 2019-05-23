@@ -48,6 +48,7 @@ def soustraction(pix1, pix2):
 	R1,G1,B1 = pix1
 	R2,G2,B2 = pix2
 	
+	#calcul soustraction
 	R = abs(R1-R2)
 	G = abs(G1-G2)
 	B = abs(B1-B2)
