@@ -4,25 +4,25 @@ Pour 31/05
 
 L'objectif :
 
-Detecter les raison qui font que le code n'est pas parfait
+Détecter les raisons qui font que le code n'est pas parfait
 
 
 
-Test a faire :
+Test à faire :
 
-Prendre 2 image de taille similaire très petite
+Prendre 2 images de taille similaire très petites
 
-- Faire 100 itération de l'image avec resolution differente a chaque fois plus grande
-- Comparaison graphique des resultat obtenu  
+- Faire 100 itérations de l'image avec résolution différente, de plus en plus grand
+- Comparaison graphique des resultats obtenus  
 - Baisser le taux d'erreur 
 
-Prendre une meme image avec un side different a chaque fois
+Prendre une même image avec un side différent à chaque fois
 
 -
 -
 -
 
 
-Differentes Image
-Differente reso
-Meme image diff side / diff percent
+Différentes Images
+Différentes resolutions
+Même image diff side / diff percent
