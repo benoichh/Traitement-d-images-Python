@@ -1,0 +1,28 @@
+24/05/2019
+
+Pour 31/05
+
+L'objectif :
+
+Detecter les raison qui font que le code n'est pas parfait
+
+
+
+Test a faire :
+
+Prendre 2 image de taille similaire très petite
+
+- Faire 100 itération de l'image avec resolution differente a chaque fois plus grande
+- Comparaison graphique des resultat obtenu  
+- Baisser le taux d'erreur 
+
+Prendre une meme image avec un side different a chaque fois
+
+-
+-
+-
+
+
+Differentes Image
+Differente reso
+Meme image diff side / diff percent
