@@ -11,8 +11,6 @@ Files = listdir(sys.argv[1])
 
 for f in Files:
 	
-	listCoordX = ()
-	listCoordY = ()
 	
 	im = Image.open(sys.argv[1]+"/"+f)
 	im.show()
@@ -28,6 +26,8 @@ for f in Files:
 	pix = thumb.load()
 	thumb.show()
 
+	results = []
+
 	for i in range(10):
 		X = random.randrange(0, im.size[0]-radius, radius)
 		Y = random.randrange(0, im.size[1]-radius, radius)
@@ -38,15 +38,13 @@ for f in Files:
 			x = X+j*radius
 			if x+radius >= im.size[0]:
 				break
-			listCoordX.append(x)	
-
+			
 			for k in range(H):
 				y = Y+k*radius
 				if y+radius >= im.size[1]:
 					break
-				listCoordY.append(y)	
-
-
+				
+				results.append((x,y,radius))
 
 				box = (x,y,x+radius, y+radius)
 				if black:
@@ -58,8 +56,6 @@ for f in Files:
 	im.save(sys.argv[3]+"/"+"censure_"+ f)
 
 	#Comment trouver les coordonnées modifiées?
-	#Comment enlever le .png ?
-	Fichier = open("Coordonnee/"+ f + ".txt", "a")
-
-	for i in range(len(listCoordX)):
-		Fichier.write(listCoordX[i] +" "+listCoordY[i]+"\n")
+	with open("Coordonnee/censure_"+f+".txt", "w") as f:
+		for x,y,r in results:
+			print(x,y,r,file=f)
