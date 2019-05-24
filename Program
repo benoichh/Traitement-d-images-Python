@@ -11,8 +11,9 @@ side = 30
 
 #Fonction exécuter lorsque l'on lance le programme
 def Start():
+	print("")
 	files = listdir(sys.argv[1])
-	
+
 	if(len(sys.argv) > 2 and sys.argv[2] == "black"):
 	        black = True
 
@@ -22,7 +23,7 @@ def Start():
 			img = im.convert("RGB")
 			image = reconize(img)
 			image.save(sys.argv[2]+"/"+"detecte_"+ f)
-			#reussite(f)
+			reussite(f,image)
 
 
 #Fonction permettant de calculer la distance euclidienne entre 2 points
@@ -39,11 +40,11 @@ def reconize(img):
 
 	list_X = []
 	list_Y = []
-	print("step 1")
+
 	#Reconnaître des pixels similaires côte à côte
 	for x in range(0,img.size[0]-side, side):
 
-		if x%20==0: print((100*x)/(img.size[0]-side))
+
 		for y in range(0,img.size[1]-side,side):
 
 			if(pix[x,y] != (0,0,255)):
@@ -67,13 +68,13 @@ def reconize(img):
 		X = list_X[i]
 		Y = list_Y[i]
 
-		pix[X,Y] = 0,0,255							
+		pix[X,Y] = 0,0,255
 
 
-	print("step 2")
+
     #Reconnaître des rectangle à 90% de bleu
 	for x in range(0,img.size[0]-side,side):
-		if x%20==0: print((100*x)/(img.size[0]-side))
+
 		for y in range(0,img.size[1]-side,side):
 			
 			if(pix[x,y] == (0,0,255)):
@@ -114,18 +115,95 @@ def soustraction(pix1, pix2):
 	return total
 
 
-def reussite(f):
-	listCoord = ()
+def reussite(f,image):
+
+	print("Resultat")
+	print("")
+
+	Good = 0
+	FauxNegatif = 0
+	FauxPositif = 0
+	totGT = 0
+	Resolution = image.size[0]*image.size[1]
+
+	maskGT = Image.new( "L",image.size)
+	pixGT = maskGT.load()
+
+	fn = "Coordonnee/"+ f + ".txt"
+	for line in open(fn):
+		x,y,r = tuple(map(int, line.split()))
+
+		for i in range(x,x+r):
+			for j in range(y,y+r):
+				totGT = totGT + 1
+				pixGT[i,j] = 255
+	#maskGT.show()
+
+
+	pix = image.load()
+	maskRes = Image.new( "L",image.size)
+	pixRes = maskRes.load()
 	
+	for x in range(image.size[0]):
+		for y in range(image.size[1]):
+			if(pix[x,y] == (0,0,255)):
+				pixRes[x,y] = 200
+	#maskRes.show()
+
+
+	maskFinal = Image.new("RGB",image.size)
+	pixfinal = maskFinal.load()
+	for x in range(image.size[0]):
+		for y in range(image.size[1]):
+#Bon
+			if(pixRes[x,y] == 200 and pixGT[x,y] == 255):
+				pixfinal[x,y] = 0,255,0
+				Good = Good +1
+#FauxPositif
+			if(pixRes[x,y] == 200 and pixGT[x,y] == 0):
+				pixfinal[x,y] = 255,0,0
+				FauxPositif = FauxPositif +1
+#FauxNégatif
+			if(pixRes[x,y] == 0 and pixGT[x,y] == 255):
+				pixfinal[x,y] = 255,192,203
+				FauxNegatif = FauxNegatif+1
+
+	maskFinal.show()
+
+	percentGood = (float) (Good/totGT)*100
+	percentFauxPositif = (float) (FauxPositif/(Resolution-totGT))*100
+	percentFauxNegatif = (float) (FauxNegatif/(Resolution-totGT))*100
+
+	print(""+f + " positif = " , percentGood , " %")
+	print(""+f + " Faux Positif = " , percentFauxPositif , " %")
+	print(""+f + " Faux Negatif = " , percentFauxNegatif , " %")
+	print("")
+	print("")
+
+
+
+'''
 	Fichier = open("Coordonnee/"+ f + ".txt", "r")
 	content = Fichier.readlines()
 	for line in content:
-	#Comment faire ça ?
-		if(line == nombre + " " + nombre2):
-			X = nombre
-			Y = nombre2
-    			listCoord.append(X,Y)
+		if(line == None):
+			break
+		if(line != None):
+			Tab = tuple((int, line.split()))
+			X = Tab[0]
+			Y = Tab[1]
+			rad = Tab[2]
 
+			print(X)
 
+			for i in range(X,X+rad):
+				for p in range(Y,Y+rad):
+
+					listCoord.append((i,p))
+	return listCoord
+'''
+
+#Faire des graphiques avec les %
+#Si bleu moins que radius alors supprimer
 
 Start()
