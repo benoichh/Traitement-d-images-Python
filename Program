@@ -3,11 +3,9 @@
 
 from PIL import Image
 import sys
-
 from os import listdir
 
-percent = 0.95
-side = 30
+
 
 #Fonction exécuter lorsque l'on lance le programme
 def Start():
@@ -16,20 +14,17 @@ def Start():
 
 	if(len(sys.argv) > 2 and sys.argv[2] == "black"):
 	        black = True
-
+	
+	percent = 0.95
+	
 	for f in files:
-		if f.endswith(".jpg") or f.endswith(".png") :
+		if f.endswith(".jpg") or f.endswith(".png") :	
 			im = Image.open(sys.argv[1]+"/"+f)
 			img = im.convert("RGB")
+			side = calculeside(img)
 			image = reconize(img)
 			image.save(sys.argv[2]+"/"+"detecte_"+ f)
 			reussite(f,image)
-
-
-#Fonction permettant de calculer la distance euclidienne entre 2 points
-def eucl(x1,y1,x2,y2):
-	return ((x1-x2)**2+(y1-y2)**2)**0.5
-
 
 #Fonction permettant de reconnaître la censure en essaynt de trouver des pixels de même couleurs côte à côte
 def reconize(img):
@@ -94,25 +89,6 @@ def reconize(img):
 
 	thumb.show()
 	return thumb
-	pass
-
-
-#Fonction permettant la soustraction entre 2 pixels
-def soustraction(pix1, pix2):
-
-	R1,G1,B1 = pix1
-	R2,G2,B2 = pix2
-	
-	#calcul soustraction
-	R = abs(R1-R2)
-	G = abs(G1-G2)
-	B = abs(B1-B2)
-	
-	#pix3 = R,G,B
-	total = R+G+B
-	
-	#return pix3
-	return total
 
 
 def reussite(f,image):
@@ -137,7 +113,7 @@ def reussite(f,image):
 			for j in range(y,y+r):
 				totGT = totGT + 1
 				pixGT[i,j] = 255
-	#maskGT.show()
+	#maskGT crée (mask vrai)
 
 
 	pix = image.load()
@@ -148,7 +124,7 @@ def reussite(f,image):
 		for y in range(image.size[1]):
 			if(pix[x,y] == (0,0,255)):
 				pixRes[x,y] = 200
-	#maskRes.show()
+	#maskRes crée (mask que le programme trouve)
 
 
 	maskFinal = Image.new("RGB",image.size)
@@ -181,7 +157,6 @@ def reussite(f,image):
 	print("")
 
 
-
 '''
 	Fichier = open("Coordonnee/"+ f + ".txt", "r")
 	content = Fichier.readlines()
@@ -203,7 +178,42 @@ def reussite(f,image):
 	return listCoord
 '''
 
-#Faire des graphiques avec les %
+
+def calculeSide(img):
+	pix = img.load()
+	for x in range(img.size[0]-50):
+		for y in range(img.size[1]):
+			if(soustraction(pix[x,y],pix[x+1,y] <= 3):
+				i = 1
+				while(soustraction(pix[x,y],pix[x+i,y] <= 3):
+					i = i + 1
+				if(i > 1):
+					print("Valeur radius : ",i)
+					return i
+				#else
+					#voir quoi faire si non
+			
+			
+#Fonction permettant la soustraction entre 2 pixels
+def soustraction(pix1, pix2):
+
+	R1,G1,B1 = pix1
+	R2,G2,B2 = pix2
+	
+	#calcul soustraction
+	R = abs(R1-R2)
+	G = abs(G1-G2)
+	B = abs(B1-B2)
+	
+	#pix3 = R,G,B
+	total = R+G+B
+	
+	#return pix3
+	return total					
+					
+
+
+#Faire des graphiques avec les % (voir pil plot)
 #Si bleu moins que radius alors supprimer
 
 Start()
