@@ -29,6 +29,7 @@ def Start():
 			image.save(sys.argv[2]+"/"+"detecte_"+ f)
 			reussite(f,image)
 
+
 #Fonction permettant de reconnaître la censure en essaynt de trouver des pixels de même couleurs côte à côte
 def reconize(img):
 
@@ -203,7 +204,7 @@ def soustraction(pix1, pix2):
 					
 
 
-#Faire des graphiques avec les % (voir pyplot)
+#Faire des graphiques avec les % (voir pyplot) (voir si ça compile)
 #Si bleu moins que radius alors supprimer
 
 Start()
