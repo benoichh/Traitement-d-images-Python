@@ -9,16 +9,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 #Comment faire pour changer la valeur du side ? car cela ne change pas avec claculeSide
-side = 30
-percent = 0.95
+side = 13
+percent = 0.90
 
 def calculeSide(img):
 	pix = img.load()
-	for x in range(img.size[0]-50):
-		for y in range(img.size[1]):
-			if(soustraction(pix[x,y],pix[x+1,y]) <= 2):
+	for x in range(img.size[0]):
+		for y in range(img.size[1]-50):
+			if(soustraction(pix[x,y],pix[x,y+1]) <= 3):
 				i = 1
-				while(soustraction(pix[x,y],pix[x+i,y]) <= 2):
+				while(soustraction(pix[x,y],pix[x,y+i]) <= 3):
 					i = i + 1
 				if(i >= 10):
 					print("Valeur radius : ",i)
@@ -47,8 +47,9 @@ def Start():
 			listCoord.append(G)
 			listCoord.append(FP)
 			listCoord.append(FN)
-
-	graph(listCoord)
+	
+	#Demandez messages d'erreur
+	#graph(listCoord)
 
 
 
@@ -117,7 +118,7 @@ def reconize(img):
 
 				for xp in range(x,x+side):
 					for yp in range(y,y+side):
-						if(soustraction(pixR[xp,yp],pixR[x,y]) <= 3):
+						if(soustraction(pixR[xp,yp],pixR[x,y]) <= 5):
 							cmpt += 1
 
 				if(cmpt >= side*side*percent):
@@ -260,7 +261,7 @@ def reussite(f,image):
 	)
 
 	#Si on veut un diagramme pour chaque photo
-	#plt.show()
+	plt.show()
 	plt.close()
 
 	return (percentGood,percentFauxPositif,percentFauxNegatif)
@@ -282,8 +283,6 @@ def soustraction(pix1, pix2):
 	
 	#return pix3
 	return total
-
-#Si bleu moins que radius alors supprimer
 
 Start()
 
