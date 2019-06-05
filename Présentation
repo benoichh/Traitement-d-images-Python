@@ -1,0 +1,17 @@
+1 exemple du programme avec une image mal détecté 
+    -> pour montrer que nos calcul de faux positif et faux negatif fonctionne.
+
+
+
+
+On a fait de la recherche pour trouver des faiblesse a notre programme 
+
+A partir de la 8k on arrive enfin a des faux negatif 
+
+
+Prendre image paysage 8k a redimensionne en PNG jusqu'a dimension petite
+
+prendre plusieur image type visage , fruit , noir et blanc , et plein d'autre !
+
+
+
