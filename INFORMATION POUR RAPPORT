@@ -1,25 +1,96 @@
+
+
+
+méthode calcul du Side: Pourquoi , Comment , Résultat..
+
+Calcul du side en passant par un histogramme permettant d'avoir le side calculer pour les suites de pixels.
+L'histogramme permet de voir une fracture qui represente le bon side a récupéré
+Une fois ce side trouvé , l'implémenter au programme.
+	
+
 méthode de detection : Pourquoi , Comment , Résultat..
 
-	#Reconnaître des pixels similaires côte à côte
 
-Charge l'image, si la couleur du pixel n'est pas bleue faire la soustraction des pixels côte à côte et compter +1.
-Mettre ces pixels similaires dans une liste 
+#Reconnaître des pixels similaires côte à côte
+
+Charge l'image, si la couleur du pixel n'est pas bleue faire la soustraction des pixels côte à côte pour identifier la différence entre les pixels et compter +1.
+Mettre ces pixels similaires dans une liste et ensuite les colorés. On ne les met en bleu que maintenant pour ne pas colorier par erreur des pixels non censurés.
     	
 	#Reconnaître des rectangle à 90% de bleu
 
-Dans le même principe que précedemment, si le pixel est bleu, compter +1.
+Dans le même principe que précédemment, si le pixel est bleu, compter +1.
 Si le compteur représente plus de 90% de bleu, colorer le rectangle avec tous les pixels en bleu
+
+
 
 	#Fonction permettant la soustraction entre 2 pixels
 
 On charge les 3 couleurs des 2 pixels. Ensuite on effectue le calcul: on soustrait le R G et B de chaque pixel entre eux.
-On retourne un nouveau pixel, resultant de la soustraction ci-dessus.
+On retourne un nouveau pixel, résultant de la soustraction ci-dessus.
 
 méthode pour savoir le taux de reussite de notre programme: faux positif , faux négatif..
-	#maskGT crée (mask vrai)
-	#maskRes crée (mask que le programme trouve)
 	
+#maskGT crée (mask vrai)
+
+On extrait les données du programme makeMosaique.py pour pouvoir comparer les coordonnées des pixels censurés avec les pixels identifiés comme identiques. Le mask est créé 
+
+	#maskRes crée (mask que le programme trouve)
+
+Compare les données extraites, identifie les pixels “Bons”, les “FauxPositifs” (les pixels colorés alors que non censurés) et les “FauxNégatifs” (les pixels non colorés alors que censurés).
 
 méthode pour présenté nos resultats : comparaison entre les différentes images compilé etc..
 	#Histograme
+
+On créer des histogrammes pour présenter les résultats. On prends les données percentGood, percentFauxPositif et percentFauxNegatif.
+
+Ensuite on introduit des diagrammes pour chaque photo.
+
+
+
+
+
+méthode calcul du Side: Pourquoi , Comment , Résultat..
+
+Calcul du side en passant par un histogramme permettant d'avoir le side calculer pour les suites de pixels.
+L'histogramme permet de voir une fracture qui represente le bon side a récupéré
+Une fois ce side trouvé , l'implémenter au programme.
+	
+
+méthode de detection : Pourquoi , Comment , Résultat..
+
+
+#Reconnaître des pixels similaires côte à côte
+
+Charge l'image, si la couleur du pixel n'est pas bleue faire la soustraction des pixels côte à côte pour identifier la différence entre les pixels et compter +1.
+Mettre ces pixels similaires dans une liste et ensuite les colorés. On ne les met en bleu que maintenant pour ne pas colorier par erreur des pixels non censurés.
+    	
+	#Reconnaître des rectangle à 90% de bleu
+
+Dans le même principe que précédemment, si le pixel est bleu, compter +1.
+Si le compteur représente plus de 90% de bleu, colorer le rectangle avec tous les pixels en bleu
+
+
+
+	#Fonction permettant la soustraction entre 2 pixels
+
+On charge les 3 couleurs des 2 pixels. Ensuite on effectue le calcul: on soustrait le R G et B de chaque pixel entre eux.
+On retourne un nouveau pixel, résultant de la soustraction ci-dessus.
+
+méthode pour savoir le taux de reussite de notre programme: faux positif , faux négatif..
+	
+#maskGT crée (mask vrai)
+
+On extrait les données du programme makeMosaique.py pour pouvoir comparer les coordonnées des pixels censurés avec les pixels identifiés comme identiques. Le mask est créé 
+
+	#maskRes crée (mask que le programme trouve)
+
+Compare les données extraites, identifie les pixels “Bons”, les “FauxPositifs” (les pixels colorés alors que non censurés) et les “FauxNégatifs” (les pixels non colorés alors que censurés).
+
+méthode pour présenté nos resultats : comparaison entre les différentes images compilé etc..
+	#Histograme
+
+On créer des histogrammes pour présenter les résultats. On prends les données percentGood, percentFauxPositif et percentFauxNegatif.
+
+Ensuite on introduit des diagrammes pour chaque photo.
+
 
