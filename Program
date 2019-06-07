@@ -3,14 +3,14 @@
 
 from PIL import Image
 import sys
-from os import listdir
 import random
+from os import listdir
 
 import pandas as pd
 import matplotlib.pyplot as plt
 
 #Comment faire pour changer la valeur du side ? car cela ne change pas avec claculeSide
-side = 13
+side = 30
 percent = 0.90
 
 def calculeSide(img):
