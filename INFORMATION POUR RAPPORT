@@ -1,10 +1,18 @@
 méthode de detection : Pourquoi , Comment , Résultat..
+
 	#Reconnaître des pixels similaires côte à côte
-    	#Reconnaître des rectangle à 90% de bleu
+
+Charge l'image, si la couleur du pixel n'est pas bleue faire la soustraction des pixels côte à côte et compter +1
+    	
+	#Reconnaître des rectangle à 90% de bleu
+
+Dans le même principe que précedemment, si le pixel est bleu, compter +1.
+Si le compteur représente plus de 90% de bleu, colorer le rectangle avec tous les pixels en bleu
+
 	#Fonction permettant la soustraction entre 2 pixels
 
-
-
+On charge les 3 couleurs des 2 pixels. Ensuite on effectue le calcul: on soustrait le R G et B de chaque pixel entre eux.
+On retourne un nouveau pixel, resultant de la soustraction ci-dessus.
 
 méthode pour savoir le taux de reussite de notre programme: faux positif , faux négatif..
 	#maskGT crée (mask vrai)
