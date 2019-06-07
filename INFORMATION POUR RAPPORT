@@ -1,0 +1,16 @@
+méthode de detection : Pourquoi , Comment , Résultat..
+	#Reconnaître des pixels similaires côte à côte
+    	#Reconnaître des rectangle à 90% de bleu
+	#Fonction permettant la soustraction entre 2 pixels
+
+
+
+
+méthode pour savoir le taux de reussite de notre programme: faux positif , faux négatif..
+	#maskGT crée (mask vrai)
+	#maskRes crée (mask que le programme trouve)
+	
+
+méthode pour présenté nos resultats : comparaison entre les différentes images compilé etc..
+	#Histograme
+
