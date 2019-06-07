@@ -9,36 +9,53 @@ from os import listdir
 import pandas as pd
 import matplotlib.pyplot as plt
 
-#Comment faire pour changer la valeur du side ? car cela ne change pas avec claculeSide
-side = 30
+
 percent = 0.90
 
-def calculeSide(img):
-	pix = img.load()
-	a = 0
-	cmpt = 0
+#faire un histo
+def calculeSide(img,f):
+
+	cop = img.copy()
+	pix = cop.load()
+	listeHisto = [0]*img.size[0]
+
 	for x in range(img.size[0]):
-		for y in range(img.size[1]-50):
-			if(soustraction(pix[x,y],pix[x,y+1]) <= 3):
-				i = 1
-				while(soustraction(pix[x,y],pix[x,y+i]) <= 3):
-					i = i + 1
-				if(i >= 10):
-					a += i
-					
-					x = x + random.randint(10,50)
-					while(x >= img.size[0]):
-						x = x - random.randint(10,50)
-						
-					y = y + random.randint(10,50)
-					while(y >= img.size[1]):
-						y = y - random.randint(10,50)
-						
-					cmpt += 1
-				if(cmpt == 3):
+		for y in range(img.size[1]):
+			i = 0
+			while(soustraction(pix[x,y],pix[x+i,y]) <= 2):
+				i += 1
+				if x+i >= img.size[0]:
 					break
-	return int(a//3)
+			
+			listeHisto[i]+=1
 	
+	while listeHisto[-5:] == [0,0,0,0,0]:
+		listeHisto = listeHisto[:-1]
+	X = list(range(0,len(listeHisto)))
+	dlisteHisto = [0]+[a-b for a,b in zip(listeHisto[1:],listeHisto[:-1])]
+	ddlisteHisto = [0]+[a-b for a,b in zip(dlisteHisto[2:],dlisteHisto[:-2])]+[0]
+	plt.plot(X[5:],listeHisto[5:],color = "black", lw = 2, alpha=1)
+	plt.plot(X[5:],dlisteHisto[5:],color = "red", lw = 2, alpha=1)
+	plt.plot(X[5:],ddlisteHisto[5:],color = "blue", lw = 2, alpha=1)
+	
+	plt.title("Nombres de pixel similaire côte à côte en fonction du pixels" + f)
+	plt.xlabel("n° de Pixels")
+	plt.ylabel("Nombres de pixel similaire côte à côte")
+	#plt.show()
+	plt.close()
+
+	last = None
+	Max = 0
+	for n in range(3,len(listeHisto)-1):
+		if(dlisteHisto[n] < 0 and dlisteHisto[n-1] > dlisteHisto[n] and dlisteHisto[n+1] > dlisteHisto[n]):
+			if(Max < dlisteHisto[n-1]+dlisteHisto[n+1]-2*dlisteHisto[n]):
+				Max = dlisteHisto[n-1]+dlisteHisto[n+1]-2*dlisteHisto[n]
+				last = n-1
+	print("radius : ", last)
+	return last
+
+
+
 #Fonction exécuter lorsque l'on lance le programme
 def Start():
 	print("")
@@ -53,17 +70,17 @@ def Start():
 		if f.endswith(".jpg") or f.endswith(".png") :
 			im = Image.open(sys.argv[1]+"/"+f)
 			img = im.convert("RGB")
-			side = calculeSide(img)
-			image = reconize(img)
+			radius = calculeSide(img,f)
+			image = reconize(img,radius)
 			image.save(sys.argv[2]+"/"+"detecte_"+ f)
 			G,FP,FN = reussite(f,image)
 
 			listCoord.append(G)
 			listCoord.append(FP)
 			listCoord.append(FN)
-	
-	#Demandez messages d'erreur
-	#graph(listCoord)
+
+
+	graph(listCoord)
 
 
 
@@ -111,7 +128,7 @@ def graph(listCoord):
 
 
 #Fonction permettant de reconnaître la censure en essaynt de trouver des pixels de même couleurs côte à côte
-def reconize(img):
+def reconize(img,side):
 
 	pixR = img.load()
 	thumb = img.copy()
@@ -238,10 +255,11 @@ def reussite(f,image):
 
 	maskFinal.show()
 	print("programme : ", Good)
-
+	
+	#Revoir calculs
 	percentGood = abs((float) (Good/totGT)*100)
-	percentFauxPositif = abs((float) (FauxPositif/(Resolution-totGT))*100)
-	percentFauxNegatif = abs((float) (FauxNegatif/(Resolution-totGT))*100)
+	percentFauxPositif = abs((float) (FauxPositif/(Resolution))*100)
+	percentFauxNegatif = abs((float) (percentGood - 100))
 
 	print(""+f + " positif = " , percentGood , " %")
 	print(""+f + " Faux Positif = " , percentFauxPositif , " %")
@@ -251,7 +269,6 @@ def reussite(f,image):
 
 
 	#Histograme
-
 	s = pd.Series(
 		[percentGood, percentFauxPositif, percentFauxNegatif],
 		index = ["Good", "FP", "FN"]
@@ -267,7 +284,7 @@ def reussite(f,image):
 	ax.tick_params(axis='y', colors='black')
 
 	#Plot the data:
-	my_colors = 'grb'  #green, red, blue
+	my_colors = ['green','red','blue']  #green, red, blue
 
 	s.plot( 
 	kind='bar', 
@@ -275,7 +292,7 @@ def reussite(f,image):
 	)
 
 	#Si on veut un diagramme pour chaque photo
-	plt.show()
+	#plt.show()
 	plt.close()
 
 	return (percentGood,percentFauxPositif,percentFauxNegatif)
@@ -299,4 +316,3 @@ def soustraction(pix1, pix2):
 	return total
 
 Start()
-
