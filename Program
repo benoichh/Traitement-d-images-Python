@@ -21,6 +21,8 @@ def calculeSide(img):
 				while(soustraction(pix[x,y],pix[x,y+i]) <= 3):
 					i = i + 1
 				if(i >= 10):
+					a = i
+					x = x +
 					print("Valeur radius : ",i)
 					return i
 
