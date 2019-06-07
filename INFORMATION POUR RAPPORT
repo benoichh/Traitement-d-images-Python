@@ -2,7 +2,8 @@ méthode de detection : Pourquoi , Comment , Résultat..
 
 	#Reconnaître des pixels similaires côte à côte
 
-Charge l'image, si la couleur du pixel n'est pas bleue faire la soustraction des pixels côte à côte et compter +1
+Charge l'image, si la couleur du pixel n'est pas bleue faire la soustraction des pixels côte à côte et compter +1.
+Mettre ces pixels similaires dans une liste 
     	
 	#Reconnaître des rectangle à 90% de bleu
 
