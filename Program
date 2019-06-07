@@ -25,8 +25,15 @@ def calculeSide(img):
 					i = i + 1
 				if(i >= 10):
 					a += i
+					
 					x = x + random.randint(10,50)
+					while(x >= img.size[0]):
+						x = x - random.randint(10,50)
+						
 					y = y + random.randint(10,50)
+					while(y >= img.size[1]):
+						y = y - random.randint(10,50)
+						
 					cmpt += 1
 				if(cmpt == 3):
 					break
