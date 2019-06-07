@@ -24,7 +24,6 @@ for f in Files:
 	thumb = im.copy()
 	thumb.thumbnail((im.size[0]//radius, im.size[1]//radius))
 	pix = thumb.load()
-	thumb.show()
 
 	results = []
 
@@ -55,7 +54,9 @@ for f in Files:
 	im.show()
 	im.save(sys.argv[3]+"/"+"censure_"+ f)
 
-	#Comment trouver les coordonnées modifiées?
+
 	with open("Coordonnee/censure_"+f+".txt", "w") as f:
 		for x,y,r in results:
 			print(x,y,r,file=f)
+
+
