@@ -10,7 +10,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-percent = 0.90
+percent = 0.95
 
 #faire un histo
 def calculeSide(img,f):
@@ -22,7 +22,7 @@ def calculeSide(img,f):
 	for x in range(img.size[0]):
 		for y in range(img.size[1]):
 			i = 0
-			while(soustraction(pix[x,y],pix[x+i,y]) <= 2):
+			while(soustraction(pix[x,y],pix[x+i,y]) <= 0):
 				i += 1
 				if x+i >= img.size[0]:
 					break
@@ -41,16 +41,17 @@ def calculeSide(img,f):
 	plt.title("Nombres de pixel similaire côte à côte en fonction du pixels" + f)
 	plt.xlabel("n° de Pixels")
 	plt.ylabel("Nombres de pixel similaire côte à côte")
-	#plt.show()
+	plt.show()
 	plt.close()
 
 	last = None
 	Max = 0
 	for n in range(3,len(listeHisto)-1):
-		if(dlisteHisto[n] < 0 and dlisteHisto[n-1] > dlisteHisto[n] and dlisteHisto[n+1] > dlisteHisto[n]):
-			if(Max < dlisteHisto[n-1]+dlisteHisto[n+1]-2*dlisteHisto[n]):
-				Max = dlisteHisto[n-1]+dlisteHisto[n+1]-2*dlisteHisto[n]
-				last = n-1
+		if( n >= 10):
+			if(dlisteHisto[n] < 0 and dlisteHisto[n-1] > dlisteHisto[n] and dlisteHisto[n+1] > dlisteHisto[n]):
+				if(Max < dlisteHisto[n-1]+dlisteHisto[n+1]-2*dlisteHisto[n]):
+					Max = dlisteHisto[n-1]+dlisteHisto[n+1]-2*dlisteHisto[n]
+					last = n-1
 	print("radius : ", last)
 	return last
 
@@ -80,7 +81,7 @@ def Start():
 			listCoord.append(FN)
 
 
-	graph(listCoord)
+	#graph(listCoord)
 
 
 
@@ -149,7 +150,7 @@ def reconize(img,side):
 
 				for xp in range(x,x+side):
 					for yp in range(y,y+side):
-						if(soustraction(pixR[xp,yp],pixR[x,y]) <= 5):
+						if(soustraction(pixR[xp,yp],pixR[x,y]) <= 0):
 							cmpt += 1
 
 				if(cmpt >= side*side*percent):
@@ -168,7 +169,7 @@ def reconize(img,side):
 
 
 
-    #Reconnaître des rectangle à 90% de bleu
+    #Reconnaître des rectangle à 95% de bleu
 	for x in range(0,img.size[0]-side,side):
 
 		for y in range(0,img.size[1]-side,side):
@@ -292,7 +293,7 @@ def reussite(f,image):
 	)
 
 	#Si on veut un diagramme pour chaque photo
-	#plt.show()
+	plt.show()
 	plt.close()
 
 	return (percentGood,percentFauxPositif,percentFauxNegatif)
